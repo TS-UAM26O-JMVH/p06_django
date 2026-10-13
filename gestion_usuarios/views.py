@@ -1,4 +1,6 @@
 from rest_framework import viewsets, status
+from gestion_usuarios.models import Usuario
+from gestion_usuarios.serializers import UsuarioSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
@@ -20,6 +22,15 @@ from gestion_usuarios.exceptions.usuarioExeptions import (
     ConflictoUsuario_409,
 )
 
+#codigo 9 de P6 que se configura de forma global
+#permission_classes = [IsAuthenticated] se agrega en back_end_django/settings.py
+class UsuarioViewSet(viewsets.ModelViewSet):
+    """
+    API para la gestión de Usuarios.
+    (La seguridad se aplica de forma global mediante JWT y IsAuthenticated en settings.py).
+    """
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
 
 class UsuarioViewSet(viewsets.ViewSet):
     """

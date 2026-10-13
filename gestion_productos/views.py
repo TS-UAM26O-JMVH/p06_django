@@ -6,6 +6,8 @@ from django.shortcuts import render
 # gestion_productos/views.py
 
 from rest_framework import viewsets, status
+from gestion_productos.models import Producto #p6 codigo 10
+from gestion_productos.serializers import ProductoSerializer #p6 codigo 10
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
@@ -25,6 +27,15 @@ from gestion_productos.exceptions.productoExceptions import (
     ProductoProhibido_403,
 )
 
+#codigo 10 de P6 que se configura de forma global
+#permission_classes = [IsAuthenticated] se agrega en back_end_django/settings.py
+class ProductoViewSet(viewsets.ModelViewSet):
+    """
+    API para la gestión de Productos.
+    (La seguridad se aplica de forma global mediante JWT y IsAuthenticated en settings.py).
+    """
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
 
 class ProductoViewSet(viewsets.ViewSet):
     """

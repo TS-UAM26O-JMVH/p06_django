@@ -139,7 +139,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticated', #<--Aqui se aplica globalmente a todo (codigo 9 y 10)
     ),
 }
 SIMPLE_JWT = {
@@ -184,4 +184,28 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+#COdigo 8: configuracion de Swagger para el uso de JWT
+SWAGGER_SETTINGS = {
+
+    # Desactiva el inicio de sesión mediante cookies de Django
+    'USE_SESSION_AUTH': False,
+
+    # Se evita que Swagger realice validaciones externas
+    # que puedan generar errores
+    'VALIDATOR_URL': None,
+
+    # Definición del esquema de autenticación Bearer
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': (
+                'Encabezado para autenticación JWT con esquema Bearer. '
+                'Ejemplo: "Bearer {token}"'
+            ),
+        }
+    },
 }
