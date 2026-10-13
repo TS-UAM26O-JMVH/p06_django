@@ -6,7 +6,7 @@ from django.shortcuts import render
 # gestion_productos/views.py
 
 from rest_framework import viewsets, status
-from gestion_productos.models import Producto #p6 codigo 10
+from gestion_productos.models import Productos as Producto#p6 codigo 10
 from gestion_productos.serializers import ProductoSerializer #p6 codigo 10
 from rest_framework.response import Response
 from rest_framework.decorators import action

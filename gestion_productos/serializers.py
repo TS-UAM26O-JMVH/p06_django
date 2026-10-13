@@ -34,3 +34,5 @@ class ProductoParcialSerializer(serializers.ModelSerializer):
             campo: {"required": False}
             for campo in fields
         }
+
+ProductoSerializer = ProductoCompletoSerializer

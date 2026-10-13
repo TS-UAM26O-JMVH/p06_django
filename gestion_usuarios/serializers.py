@@ -1,5 +1,6 @@
 #COdigo 24
-# Este archivo tiene por objetivo definir la estructura y las reglas de validación para los datos relacionados con los usuarios en las operaciones de la API.
+# Este archivo tiene por objetivo definir la estructura y las reglas de validación para 
+# los datos relacionados con los usuarios en las operaciones de la API.
 from rest_framework import serializers
 from .models import Usuario
 

@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from gestion_usuarios.models import Usuario
-from gestion_usuarios.serializers import UsuarioSerializer
+#from gestion_usuarios.serializers import UsuarioSerializer SE CORRIGIÓ ESTA IMPORTACION PORQUE UsuarioSerializer no esta hecho como tal
+from gestion_usuarios.serializers import UsuarioCompletoSerializer as UsuarioSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
