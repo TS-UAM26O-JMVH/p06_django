@@ -23,7 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("gestion_usuarios.urls")),  # <-- esta línea es la clave (p4)
     path("api/", include("gestion_productos.urls")),  # <-- esta línea es la clave (p5)
-    path("api/", include("autentificacion.urls")),  # <-- esta línea es la clave (p6)
+    path("api/", include("autentificacion.urls")),  # <-- esta línea es la clave (p6): Registro de las rutas de autenticación JWT definidas en la aplicación 'autentificacion'.
     re_path(r"^swagger(?P<format>\.json|\.yaml)$", schema_view.without_ui(cache_timeout=0), name="schema-json"),
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
