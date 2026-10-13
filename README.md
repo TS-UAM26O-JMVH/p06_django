@@ -1,4 +1,4 @@
-# Práctica 5 - API REST USUARIOS Y PRODUCTOS
+# Práctica 6 - Django y JWT Authentication
 
 Proyecto backend desarrollado con **Django REST Framework** y **PostgreSQL**, utilizando contenedores de **Docker** para la base de datos y documentado con **Swagger**.
 
@@ -13,83 +13,90 @@ Proyecto backend desarrollado con **Django REST Framework** y **PostgreSQL**, ut
 
 ---
 
+## 📂 Estructura del Proyecto
+
+El proyecto está organizado en las siguientes aplicaciones principales:
+
+* **`gestion_productos/`**: Modelos, serializadores y ViewSets para la administración completa del catálogo de productos.
+* **`gestion_usuarios/`**: Gestión de perfiles, control de acceso y lógica de usuarios del sistema.
+* **`autentificacion/`**: Configuración y endpoints dedicados a la emisión y validación de credenciales y tokens JWT.
+
+---
+
 ## 🛠️ Instrucciones de Configuración y Ejecución
 
 Sigue estos pasos en tu terminal para poner a marchar el proyecto en tu equipo local:
 
 ### 1. Clonar el repositorio
 ```bash
-git clone [https://github.com/TS-UAM26O-JMVH/p05_django.git](https://github.com/TS-UAM26O-JMVH/p05_django.git)
-cd p05_django/proyectos_django/django4/proyecto_django/back_end_django
+git clone [https://github.com/TS-UAM26O-JMVH/p06_django.git](https://github.com/TS-UAM26O-JMVH/p06_django.git)
+cd p06_django/proyectos_django/django4/proyecto_django/back_end_django
 ```
 
-### 2. Levantar la base de datos con Docker compose
+### 2. Activar el entorno virtual
+```bash
+source venv/bin/activate
+```
+
+### 2.1 Cómo desactivar el entorno virtual
+Para salir del entorno virtual y regresar a la terminal normal del sistema, simplemente ejecuta:
+```bash
+deactivate
+```
+### 3 Instalar dependencias
+```bash
+pip install -r requirements.txt
+```
+### 4. Levantar la base de datos con Docker compose
 asegurate de tener DOcker activo y ejecuta el sigiente comando en la raiz donde se encuentra tu Docker-compose.yml
 ```bash
 sudo docker compose up -d
 ```
-### 2.1 como detener la base de datos de Docker
+### 4.1 como detener la base de datos de Docker
 Cuando termines de trabajar y desees apagar el contenedor de PostgreSQL de forma limpia, ejecuta el siguiente comando en la misma ruta donde se encuentra tu docker-compose.yml:
 ```bash
 sudo docker compose down
 ```
 
-### 3. Activar el entorno virtual
+### 5. Aplicar las migraciones de la Base de datos y crear SuperUsuario
 ```bash
-source venv/bin/activate
-```
-
-### 3.1 Cómo desactivar el entorno virtual
-Para salir del entorno virtual y regresar a la terminal normal del sistema, simplemente ejecuta:
-```bash
-deactivate
-```
-
-### 4. Aplicar las migraciones de la Base de datos
-```bash
+python manage.py makemigrations
 python manage.py migrate
+python manage.py initadmin
 ```
 
-### 5. Iniciar el servidor de desarrollo
+### 6. Iniciar el servidor de desarrollo
 ```bash
 python manage.py runserver
 ```
-### 5.1 Para detener el servidor de desarrollo de django
+### 6.1 Para detener el servidor de desarrollo de django
 para detener el servidor en cualquier momento presiona en la terminal:
 ```
 Ctrl +  C
 ```
 ---
 
-## 🧪 Cómo Probar el Código y los Endpoints
-Una vez que el servidor esté corriendo, puedes interactuar con la API de dos formas:
+## 🔐 Autenticación y Uso de Endpoints (JWT)
 
-Interfaz gráfica de Swagger (Recomendado):
- Abre tu navegador web e ingresa a la siguiente URL para explorar y probar los métodos HTTP disponibles:
-👉 http://127.0.0.1:8000/swagger/
+Este proyecto utiliza una política de seguridad global basada en IsAuthenticated. Por lo tanto, las peticiones a los recursos protegidos requieren un token de acceso válido.
 
-Endpoints disponibles:
+1. Obtener el Token: Realiza una petición POST enviando tus credenciales (usuario y contraseña) a la ruta:
 
- Gestión de Usuarios:
+[http://127.0.0.1:8000/api/token/](http://127.0.0.1:8000/api/token/)
 
-    GET /api/usuarios/: Obtiene la lista completa de usuarios registrados.
+El servidor te devolverá un JSON con los tokens access y refresh.
 
-    POST /api/usuarios/: Permite registrar un nuevo usuario en la base de datos.
+2. Autorización en Swagger:
 
- Gestión de Productos (Práctica 5):
+    >Dirígete a la interfaz de Swagger en http://127.0.0.1:8000/swagger/ (o la ruta configurada).
 
-    GET /api/products/: Obtiene la lista completa de productos activos.
+    >Haz clic en el botón Authorize.
 
-    POST /api/products/: Crea un nuevo producto validando sus campos y estructura.
-
-    GET /api/products/{id}/: Obtiene los detalles de un producto específico mediante su UUID.
-
-    PUT /api/products/{id}/: Actualiza de forma completa un producto.
-
-    PATCH /api/products/{id}/: Actualiza de forma parcial un producto.
-
-    DELETE /api/products/{id}/: Realiza un borrado lógico del producto.
-
+    >Ingresa tu token de acceso anteponiendo la palabra Bearer  seguida de un espacio:
+      ```
+      Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      ```
+    >¡Listo! Ahora podrás probar los endpoints protegidos de productos y usuarios.
 ---
 
 ## 👨‍💻 Autor
